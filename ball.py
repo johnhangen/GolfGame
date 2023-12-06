@@ -25,12 +25,19 @@ class Ball:
     def draw(self):
         pygame.draw.circle(self.surface, self.color, (int(self.xy.x), int(self.xy.y)), self.radius)
 
-    def update(self, dt: float):
+    def rect_bounds(self, x1, y1, x2, y2):
+        if y2 > self.xy.y > y1 and x2 > self.xy.x > x1:
+            self.vel_xy.x *= -1
+        if y2 > self.xy.y > y1 and x2 > self.xy.x > x1:
+            self.vel_xy.y *= -1
+
+    def screen_bounds(self):
         if self.xy.x > SCREEN_WIDTH or self.xy.x < 0:
             self.vel_xy.x *= -1
         if self.xy.y < 0 or self.xy.y > GROUND_LEVEL:
             self.vel_xy.y *= -1
 
+    def update(self, dt: float):
         self.vel_xy *= FRICTION
         self.xy += self.vel_xy * dt
         self.vel_xy += GRAVITY * dt
