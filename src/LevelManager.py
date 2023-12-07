@@ -12,9 +12,9 @@ class LevelManger:
         self._font = None
 
     def init_assets(self):
-        self._sky = pygame.image.load("images/sky.jpg")
-        self._grass = pygame.image.load("images/grass.jpg")
-        self._title = pygame.image.load("images/title.png")
+        self._sky = pygame.image.load("../images/sky.jpg")
+        self._grass = pygame.image.load("../images/grass.jpg")
+        self._title = pygame.image.load("../images/title.png")
         pygame.font.init()
         self._font = pygame.font.SysFont("test", 36)
 
