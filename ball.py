@@ -11,7 +11,7 @@ HOLE_POSITION = pygame.Rect(1200, 650, 30, 10)
 GROUND_LEVEL = 650
 FRICTION = 0.995
 GRAVITY = pygame.Vector2(0, 30)
-MIN_VELOCITY = 5
+MIN_VELOCITY = 20
 
 
 class Ball:
@@ -21,6 +21,7 @@ class Ball:
         self.radius = radius
         self.color = color
         self.surface = surface
+        self.moving = True
 
     def draw(self):
         pygame.draw.circle(self.surface, self.color, (int(self.xy.x), int(self.xy.y)), self.radius)
@@ -44,6 +45,7 @@ class Ball:
 
         if abs(self.vel_xy.x) < MIN_VELOCITY and abs(self.vel_xy.y) < MIN_VELOCITY and self.xy.y > GROUND_LEVEL:
             self.vel_xy = pygame.Vector2(0, 0)
+            self.moving = True
 
     def init_move(self, mouse_pos: tuple):
         self.vel_xy = (pygame.Vector2(mouse_pos) - self.xy) * 0.5
