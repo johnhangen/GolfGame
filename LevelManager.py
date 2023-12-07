@@ -18,13 +18,15 @@ class LevelManger:
         pygame.font.init()
         self._font = pygame.font.SysFont("test", 36)
 
-
     def render_level(self, score, stroke, ball):
         if self.level == 0:
             self.render_title()
+        elif self.level == 999:
+            self.render_store()
+        elif self.level == 998:
+            self.render_credits()
         elif self.level == 1:
             self.render_l1(score, stroke, ball)
-
 
     def render_title(self):
         self.surface.blit(self._sky, (0, 0))
@@ -32,6 +34,20 @@ class LevelManger:
         self.surface.blit(self._grass, (650, 650))
         self.surface.blit(self._title, (170, 0))
         self.surface.blit(self._font.render("Press Enter to Play", True, (0, 0, 0)), (550, 500))
+        self.surface.blit(self._font.render("C for Credits", True, (0, 0, 0)), (50, 670))
+        self.surface.blit(self._font.render("S for Store", True, (0, 0, 0)), (1100, 670))
+
+    def render_store(self):
+        self.surface.blit(self._sky, (0, 0))
+        self.surface.blit(self._grass, (0, 650))
+        self.surface.blit(self._grass, (650, 650))
+
+    def render_credits(self):
+        self.surface.blit(self._sky, (0, 0))
+        self.surface.blit(self._grass, (0, 650))
+        self.surface.blit(self._grass, (650, 650))
+        self.surface.blit(self._font.render("By: Jack Hangen", True, (0, 0, 0)), (550, 300))
+        self.surface.blit(self._font.render("I did it all", True, (0, 0, 0)), (590, 330))
 
     def render_l1(self, score, stroke, ball):
         self.surface.blit(self._sky, (0, 0))

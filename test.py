@@ -33,6 +33,12 @@ class App:
             if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER and self.level == 0:
                 self.level += 1
                 self._levelManger.level = self.level
+            elif event.key == pygame.K_s:
+                self.level = 999
+            elif event.key == pygame.K_c:
+                self.level = 998
+            elif event.key == pygame.K_ESCAPE and (self.level == 999 or self.level == 998):
+                self.level = 0
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.level != 0:
             if self.ball.moving:
                 self.ball.moving = False
@@ -40,6 +46,8 @@ class App:
                 self.ball.init_move(pygame.mouse.get_pos())
 
     def on_loop(self):
+        self._levelManger.level = self.level
+
         if self.level == 1:
             self.ball.rect_bounds(600, 300, 650, 650)
         elif self.level == 2:
@@ -47,6 +55,8 @@ class App:
 
         self.ball.screen_bounds()
         self.ball.update(self._clock.tick(60) / 1000)
+
+        # ball scored
         if pygame.Rect(1200, 650, 30, 10).collidepoint(self.ball.xy.x, self.ball.xy.y):
             self.score += 1
             self.stroke = 0
