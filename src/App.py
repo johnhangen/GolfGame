@@ -3,6 +3,18 @@ from pygame.locals import *
 from ball import Ball
 from LevelManager import LevelManger
 
+COLORS_POS = {
+    (100, 100): (193, 221, 4),
+    (350, 100): (20, 220, 215),
+    (600, 100): (238, 58, 163),
+    (850, 100): (108, 72, 9),
+    (1100, 100): (227, 99, 144),
+    (100, 350): (151, 106, 238),
+    (350, 350): (239, 73, 236),
+    (600, 350): (57, 201, 227),
+    (850, 350): (179, 8, 231),
+    (1100, 350): (112, 11, 172)
+}
 
 class App:
     def __init__(self):
@@ -15,6 +27,7 @@ class App:
         self.stroke = 0
         self.ball = None
         self.level = 0
+        self.color_positions = None
 
     def on_init(self):
         pygame.init()
@@ -39,11 +52,19 @@ class App:
                 self.level = 998
             elif event.key == pygame.K_ESCAPE and (self.level == 999 or self.level == 998):
                 self.level = 0
-        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.level != 0:
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.level not in [0, 999, 998]:
             if self.ball.moving:
                 self.ball.moving = False
                 self.stroke += 1
                 self.ball.init_move(pygame.mouse.get_pos())
+        elif event.type == pygame.MOUSEBUTTONDOWN and self.level == 999:
+            box_size = 50
+            print('here')
+            for pos, color in COLORS_POS.items():
+                if (pos[0] - box_size <= pygame.mouse.get_pos()[0] <= pos[0] + box_size) and (pos[1] - box_size <= pygame.mouse.get_pos()[1] <= pos[1] + box_size):
+                    self.ball.color = color
+                    print(color)
+                    break
 
     def on_loop(self):
         self._levelManger.level = self.level
